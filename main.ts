@@ -1,52 +1,30 @@
-import inquirer from "inquirer";
+import inquirer from "inquirer"
+let todos = [];
+let condition = true;
 
-let myBalance = 10000; // Dollar
-let myPin = 1230;
 
-let pinAnswer = await inquirer.prompt(
+
+while(condition) 
+    {
+let addTask = await inquirer.prompt(
     [
         {
-            name:  "pin",
-            message: "enter your pin",
-            type: "number"
+            name: 'todo',
+            type: 'input',
+            message: "What you want you in your Todos"
+        },
+
+        {
+            name: 'addMore',
+            type: 'confirm',
+            message: "Do you want to add more ?",
+            default: "false"
         }
     ]
-)
+);
 
-if (pinAnswer.pin === myPin) {
-    console.log("correct pin code!!!");
-   let operationAns = await inquirer.prompt(
-        [
-            {
-                name:"operation",
-                message:"please select option",
-                type:"list",
-                choices:["withdraw", "check balance"]
-            }
-        ]
-    );
-    console.log(operationAns);
+todos.push(addTask.todo);
+condition = addTask.addMore
+console.log(todos)
 
-    if (operationAns.operation === "withdraw") {
-        let amountAns = await inquirer.prompt(
-
-            [
-                {
-                    name: "amount",
-                    message: "enter your amount",
-                    type: "number"
-                }
-            ]
-        );
-          // =, -=, +=
-          myBalance -= amountAns.amount;
-
-          console.log("Your remaining balance is: " + myBalance)
-} else if (operationAns.operation === "check balance") {
-    console.log("Your balance is: " + myBalance)
-}
-
-    console.log("incorrect pin code"!!!);
-   }
-    
-   
+    }
